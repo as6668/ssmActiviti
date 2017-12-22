@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- <!DOCTYPE mapper SYSTEM "D:\MyEclipse/dtd/mybatis-3-mapper.dtd"> -->
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.dao.IUserDao">
+ <sql id="selectAll">
+ select * from t_user
+ 
+ </sql>
+<insert id="add" parameterType="com.entity.user">
+ insert into t_user values(#{id},#{username},#{password},#{nc},#{approved})
+</insert>
+<update id="update" parameterType="com.entity.user">
+	update t_user 
+	set 
+	username=#{username},
+	password=#{password},
+	nc=#{nc}
+	approved=#{approved}
+	WHERE
+	id = #{id};
+
+</update>
+<delete id="delete" parameterType="string">
+		delete from t_user
+		where
+		id = #{id}
+
+</delete>
+<select id="findbyid" parameterType="string" resultType="com.entity.user">
+	<include refid="selectAll" />
+		where id= #{id}
+</select>
+<select id="findbyname" parameterType="string" resultType="com.entity.user">
+	<include refid="selectAll" />
+		where username= #{username}
+</select>
+<select id="findAll"  resultType="com.entity.user">
+	<include refid="selectAll" />
+</select>
+
+</mapper>
